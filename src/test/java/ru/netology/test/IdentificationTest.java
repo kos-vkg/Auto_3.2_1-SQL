@@ -13,12 +13,12 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class IdentificationTest {
 
-    DbManager manager = new DbManager();
+   // DbManager manager = new DbManager();
 
     @BeforeEach
     void setUp() throws SQLException {
-        manager.clearTables();
-        manager.setUp();
+        DbManager.clearTables();
+        DbManager.setUp();
     }
 
     @Test
@@ -28,12 +28,13 @@ public class IdentificationTest {
         var loginPage = new LoginPage();
         var authInfo = DataHelper.getAuthInfo();
         var verificationPage = loginPage.validLogin(authInfo);
-        var verificationCode = manager.getSmsCode(userId);   //DataHelper.getVerificationCodeFor(authInfo);
+        var verificationCode = DbManager.getSmsCode(userId);   //DataHelper.getVerificationCodeFor(authInfo);
         verificationPage.validVerify(verificationCode);
+
     }
 
     @AfterEach
     void deleteTabs() throws SQLException {
-        manager.clearTables();
+        DbManager.clearTables();
     }
 }

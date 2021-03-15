@@ -11,11 +11,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-@NoArgsConstructor
+//@NoArgsConstructor
 
-public class DbManager {
+public final class DbManager {
 
-    public String getSmsCode(String userId) throws SQLException {
+    public static String getSmsCode(String userId) throws SQLException {
         String usersSQL = "SELECT * FROM auth_codes WHERE user_id = ?;";
         var runner = new QueryRunner();
 
@@ -30,9 +30,9 @@ public class DbManager {
         }
     }
 
-    public void setUp() throws SQLException {
-        val runner = new QueryRunner();
-        val dataSQL = "INSERT INTO users(id,login, password,status) VALUES (?, ?, ?, ?);";
+    public static void setUp() throws SQLException {
+        var runner = new QueryRunner();
+        String dataSQL = "INSERT INTO users(id,login, password,status) VALUES (?, ?, ?, ?);";
 
         try (
                 Connection conn = DriverManager.getConnection(
@@ -47,8 +47,8 @@ public class DbManager {
     }
 
 
-    public void clearTables() throws SQLException {
-        val runner = new QueryRunner();
+    public static void clearTables() throws SQLException {
+        var runner = new QueryRunner();
         String delUsersSQL = "DELETE FROM users;";
         String delCardsSQL = "DELETE FROM cards;";
         String delAuthSQL = "DELETE FROM auth_codes;";
