@@ -13,16 +13,16 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class IdentificationTest {
 
-   // DbManager manager = new DbManager();
+    // DbManager manager = new DbManager();
 
     @BeforeEach
-    void setUp() throws SQLException {
+    void setUp() {
         DbManager.clearTables();
         DbManager.setUp();
     }
 
     @Test
-    void shouldInitCardsPage() throws SQLException {
+    void shouldInitCardsPage() {
         open("http://localhost:9999");
         String userId = DataHelper.getAuthInfo().getId();
         var loginPage = new LoginPage();
@@ -30,11 +30,10 @@ public class IdentificationTest {
         var verificationPage = loginPage.validLogin(authInfo);
         var verificationCode = DbManager.getSmsCode(userId);   //DataHelper.getVerificationCodeFor(authInfo);
         verificationPage.validVerify(verificationCode);
-
     }
 
     @AfterEach
-    void deleteTabs() throws SQLException {
+    void deleteTabs() {
         DbManager.clearTables();
     }
 }
